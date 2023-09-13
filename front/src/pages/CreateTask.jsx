@@ -17,6 +17,20 @@ function CreateTask() {
     });
   }
 
+  const [error,setError]=useState({})
+
+      function validation(){
+        const newError={}
+
+        if(!task.tasktitle.trim()){
+          newError.tasktitle="We need a name to continue."
+        }
+        if(task.todoList.length===0){
+          newError.todoList="Please add at least one task to your todo list."
+        }
+        setError(newError)
+
+      }
   function addTodo() {
     setTask((prev) => {
       const todoList=[...prev.todoList, task.todo]
@@ -35,7 +49,7 @@ function CreateTask() {
 
   function postTasks(e) {
     e.preventDefault();
-    console.log(task);
+    if(validation()){console.log(task);}
   }
   return (
     <div className="">
@@ -45,7 +59,7 @@ function CreateTask() {
       <div className="px-8">
         <form method="post" onSubmit={postTasks}>
           <div className="mb-10 grid gap-1">
-            <label className="font-semibold">The creative task name</label>
+            <label className="font-semibold">The creative task name<span className="text-[#EB6A6A]">*</span></label>
             <input
               name="tasktitle"
               value={task.tasktitle}
@@ -53,9 +67,10 @@ function CreateTask() {
               type="text"
               className="h-[3rem] pl-2 border-[1px] border-[#000]  outline-none"
             />
+            {error?.tasktitle && error.tasktitle ? (<p className="text-[#EB6A6A]">{error.tasktitle}</p>) : null}
           </div>
           <div className="grid gap-1">
-            <label className="font-semibold">Write the things to do</label>
+            <label className="font-semibold">Write the things to do<span className="text-[#EB6A6A]">*</span></label>
             <div className="flex items-center w-full">
               <input
                 name="todo"
@@ -72,6 +87,7 @@ function CreateTask() {
                 <span className="">+</span>
               </button>
             </div>
+            {error?.todoList && error.todoList ? (<p className="text-[#EB6A6A]">{error.todoList}</p>) : null}
           </div>
           {task.todoList?.length > 0 &&
             task.todoList?.map((todo,index) => {

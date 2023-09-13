@@ -7,7 +7,31 @@ function Register() {
     username: "",
     password: "",
   });
+  const [error,setError]=useState({})
 
+  function validation(){
+    const newError={}
+
+    if(!input.email.trim()){
+      newError.email="We need your email to login"
+    }else if(!isValid(input.email)){
+      newError.email="The email format is not correct"
+    }
+
+    if(!input.password.trim()){
+      newError.password="We need a password"
+    }
+    if(!input.username.trim()){
+      newError.username="We need a unique username"
+    }
+    setError(newError)
+
+  }
+
+  function isValid(){
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    return emailRegex.test(input.email)
+  }
   function getInput(e) {
     e.preventDefault();
     const { name, value } = e.target;
@@ -21,7 +45,7 @@ function Register() {
 
   function postInput(e) {
     e.preventDefault();
-    console.log(input)
+    if(validation()){console.log(input)}
   }
   return (
     <div className="mt-[5rem]">
@@ -38,6 +62,8 @@ function Register() {
               placeholder="email"
               className="focus:outline-[1px] focus:outline-[#C0EB69] border-[1px] border-black p-3 pl-2 w-full"
             />
+            {error?.email && error.email ? (<p className="text-[#EB6A6A]">{error.email}</p>) : null}
+
           </div>
           <div className="mb-4">
             <label className="mt-2 font-medium">UserName</label>
@@ -49,6 +75,8 @@ function Register() {
               placeholder="username"
               className="focus:outline-[1px] focus:outline-[#C0EB69] border-[1px] border-black p-3 pl-2 w-full"
             />
+            {error?.username && error.username ? (<p className="text-[#EB6A6A]">{error.username}</p>) : null}
+
           </div>
           <div className="mb-4">
             <label className="mt-2 font-medium">Password</label>
@@ -60,6 +88,8 @@ function Register() {
               placeholder="password"
               className="focus:outline-[1px] focus:outline-[#C0EB69] border-[1px] border-black p-3 pl-2 w-full"
             />
+            {error?.password && error.password ? (<p className="text-[#EB6A6A]">{error.password}</p>) : null}
+
           </div>
           <div className="relative">
             <button className="relative p-3 w-full mt-3 z-10 bg-[#C0EB69] text-white border-[1px] border-black">
