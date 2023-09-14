@@ -1,7 +1,14 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 function User() {
+
+  // useEffect(()=>{
+  //   axios.get("/login").then((data)=>{
+  //     console.log("user", data)
+  //   })
+  // },[])
   return (
     <div>
       <h1 className='font-semibold text-[2rem] w-full text-center p-4'>Hello User</h1>
