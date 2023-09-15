@@ -1,9 +1,10 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { UserContext } from "../UserContext";
 
 function Login() {
-  const [redirect, setRedirect] = useState(false);
+  const { ready, user } = useContext(UserContext);
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -45,12 +46,16 @@ function Login() {
   async function postInput(e) {
     e.preventDefault();
     if (validation()) {
-      await axios.post("/login", { input }).then(() => setRedirect(true));
+      try {
+        await axios
+          .post("/login", { input })
+          .then(() => (window.location.href = "/"));
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
-  if (redirect) {
-    return <Navigate to="/" />;
-  }
+
   return (
     <div className="mt-[5rem]">
       <h1 className="text-center font-semibold text-3xl">Login</h1>
