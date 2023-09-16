@@ -3,15 +3,9 @@ const express=require("express");
 const bodyParser=require("body-parser")
 const cookieParser=require("cookie-parser")
 const cors=require("cors")
-const session = require('express-session');
 const mongoose=require("mongoose")
 
 const app=express()
-app.use(session({
-  secret: 'yoursecretkey',
-  resave: false,
-  saveUninitialized: false,
-}));
 
 const corsOptions = {
     origin:true,
@@ -27,6 +21,9 @@ const Port=process.env.PORT
 
 const register=require("./routes/register")
 const login=require("./routes/login")
+const task=require("./routes/task")
+const home=require("./routes/home")
+
 
 //Database Connection
 mongoose.connect(process.env.MONGOOSE_URL)
@@ -37,8 +34,11 @@ mongoose.connect(process.env.MONGOOSE_URL)
   console.error('Error connecting to MongoDB:', err);
 });
 
+app.use(home)
 app.use(register)
 app.use(login)
+app.use(task)
+
 
 app.listen(Port,()=>{
     console.log(`Server Running on ${Port}`)

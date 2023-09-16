@@ -15,7 +15,7 @@ registerRoute.route("/register")
         username:input.username,
         password:bcrypt.hashSync(input.password,salt)
     }) 
-    console.log(input)
+
 })
 
 module.exports=registerRoute

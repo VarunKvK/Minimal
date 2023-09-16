@@ -37,7 +37,7 @@ function Navbar() {
             ) : isUserLink || isLogUserLink ? (
               <>
                 <div className="h-[2.5rem] w-[2.5rem] rounded-full bg-[#1E1E1E] flex justify-center items-center text-center text-white">
-                  <Link>
+                  <Link >
                     <Settings />
                   </Link>
                 </div>

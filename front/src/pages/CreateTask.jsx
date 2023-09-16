@@ -1,4 +1,5 @@
 import { Delete } from "@mui/icons-material";
+import axios from "axios";
 import React, { useState } from "react";
 
 function CreateTask() {
@@ -29,6 +30,7 @@ function CreateTask() {
       newError.todoList = "Please add at least one task to your todo list.";
     }
     setError(newError);
+    return Object.keys(newError).length === 0;
   }
   function addTodo() {
     setTask((prev) => {
@@ -47,10 +49,14 @@ function CreateTask() {
     });
   }
 
-  function postTasks(e) {
+  async function postTasks(e) {
     e.preventDefault();
-    if (validation()) {
-      console.log(task);
+    try {
+      if (validation()) {
+        await axios.post("/taskcreate", { task });
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
   return (
