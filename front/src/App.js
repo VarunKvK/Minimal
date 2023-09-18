@@ -26,7 +26,7 @@ function App() {
             <Route path={user ? "/user":null} element={<User/>}/>
             <Route path={"/:username"} element={<User/>}/>
             <Route path={"/create"} element={<CreateTask/>}/>
-            <Route path={"/create/:title/id"} element={<CreateTask/>}/>
+            <Route path={"/editTask/:title/:id"} element={<CreateTask/>}/>
           </Route>
         </Routes>
       </Router>

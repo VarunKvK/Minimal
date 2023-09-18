@@ -7,11 +7,11 @@ import Loader from "../components/Loader";
 
 function User() {
   const { user,ready } = useContext(UserContext);
-  if(!ready){
-    return(
-      <div className="h-[100vh] flex justify-center itmes-center mt-10"><Loader/></div>
-    )
-  }
+  // if(!ready){
+  //   return(
+  //     <div className="h-[100vh] flex justify-center itmes-center mt-10"><Loader/></div>
+  //   )
+  // }
   // useEffect(()=>{
   //   axios.get("/login").then((data)=>{
   //     console.log("user", data)

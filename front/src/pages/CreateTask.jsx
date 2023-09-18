@@ -1,12 +1,30 @@
 import { Delete } from "@mui/icons-material";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 function CreateTask() {
+  const { id } = useParams();
   const [task, setTask] = useState({
     tasktitle: "",
     todoList: [],
   });
+
+  useEffect(() => {
+    const idData = async () => {
+      if (id) {
+        await axios.get("/editTaskcreate/"+id).then((res) => {
+          const data=res.data
+          setTask({
+            tasktitle: data.tasktitle,
+            todoList: data.todo,
+          });
+        });
+      }
+    };
+    idData();
+  },[id]);
+
   function getTaskInput(e) {
     e.preventDefault();
     const { name, value } = e.target;
@@ -53,7 +71,11 @@ function CreateTask() {
     e.preventDefault();
     try {
       if (validation()) {
-        await axios.post("/taskcreate", { task });
+        if (id) {
+          await axios.put("/taskcreate", { id, task });
+        } else {
+          await axios.post("/taskcreate", { task });
+        }
       }
     } catch (err) {
       console.log(err);
@@ -62,9 +84,11 @@ function CreateTask() {
   return (
     <div className="flex md:justify-center lg:justify-start">
       <div className="w-full md:w-[90%] lg:w-[60%]">
-        <h1 className="font-bold text-[1.5rem] text-[#1E1E1E] w-full text-center p-4 md:text-[2rem] lg:text-[3rem] lg:text-left md:px-8">
+        {id ? <h1 className="font-bold text-[1.5rem] text-[#1E1E1E] w-full text-center p-4 md:text-[2rem] lg:text-[3rem] lg:text-left md:px-8">
+          Edit Your Task
+        </h1>:(<h1 className="font-bold text-[1.5rem] text-[#1E1E1E] w-full text-center p-4 md:text-[2rem] lg:text-[3rem] lg:text-left md:px-8">
           Create Task
-        </h1>
+        </h1>)}
         <div className="px-8">
           <form method="post" onSubmit={postTasks}>
             <div className="mb-10 grid gap-1">
@@ -131,7 +155,7 @@ function CreateTask() {
               })}
             <div className="w-full mt-[10rem] relative">
               <button className="z-10 relative bg-[#C0EB69] w-full p-4 text-white font-semibold border-[1px] border-black">
-                !!!Create this task!!!
+                {id ? "!!!Save this task!!!" :"!!!Create this task!!!"}
               </button>
               <div className="absolute w-full p-6 top-4 left-2 font-semibold border-[1px] border-black"></div>
             </div>

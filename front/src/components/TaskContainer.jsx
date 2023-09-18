@@ -6,15 +6,15 @@ function TaskContainer({ Title, Task, Id }) {
   return (
     <div className="flex p-6 h-auto w-[23rem] bg-[#C0EB69] border-black border-[1px]">
       <div className="relative">
-        <h1 className="text-4xl flex items-center font-semibold text-[#1E1E1E]">
+        <h1 className={Title.length>14 ? "text-3xl flex items-center font-semibold text-[#1E1E1E]":"text-4xl flex items-center font-semibold text-[#1E1E1E]"}>
           {Title}
           <span className="text-xl"> 🏆</span>
         </h1>
         <div
-          className={
+          className={Task?.length===1?"grid grid-rows-3 mt-4 gap-6":
             Task?.length > 4
               ? "grid grid-rows-5 mt-4 gap-6"
-              : "grid grid-rows-3 mt-4 gap-6"
+              : "grid grid-rows-4 mt-4 gap-6"
           }
         >
           {Task?.length > 0 &&
@@ -45,7 +45,7 @@ function TaskContainer({ Title, Task, Id }) {
           </Link>
         ) : (
           <Link
-            to={`/create/${Title}/${Id}`}
+            to={`/editTask/${Title}/${Id}`}
             className={
               "absolute bottom-0 text-center text-xl p-2 bg-white h-[3rem] w-[20rem] font-bold border-black border-[1px]"
             }

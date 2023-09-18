@@ -23,6 +23,7 @@ const register=require("./routes/register")
 const login=require("./routes/login")
 const task=require("./routes/task")
 const home=require("./routes/home")
+const edit=require("./routes/editTask")
 
 
 //Database Connection
@@ -38,6 +39,7 @@ app.use(home)
 app.use(register)
 app.use(login)
 app.use(task)
+app.use(edit)
 
 
 app.listen(Port,()=>{

@@ -21,11 +21,11 @@ function Index() {
     fetchData();
   }, []);
 
-  if(!ready){
-    return(
-      <div className="h-[100vh] flex justify-center itmes-center mt-10"><Loader/></div>
-    )
-  }
+  // if(ready){
+  //   return(
+  //     <div className="h-[100vh] flex justify-center itmes-center mt-10"><Loader/></div>
+  //   )
+  // }
   return (
     <div className="w-full flex justify-center">
       <div className="mt-10">

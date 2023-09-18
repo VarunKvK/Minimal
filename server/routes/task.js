@@ -8,6 +8,24 @@ const taskRoute = express.Router();
 taskRoute
   .route("/taskcreate")
 
+  .get(async(req,res)=>{
+    const {id}=req.body;
+    console.log({id})
+    const data=await Task.findById(id)
+    console.log(data)
+    res.json(data)
+  })
+
+  .put(async(req,res)=>{
+    const {id,task}=req.body
+    console.log(task)
+    const verifyId=await Task.findById(id)
+    verifyId.set({
+      tasktitle:task.tasktitle,
+      todo:task.todoList
+    })
+    await verifyId.save()
+  })
   .post(async (req, res) => {
     try {
       const { task } = req.body;
