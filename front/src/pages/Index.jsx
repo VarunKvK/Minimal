@@ -3,9 +3,10 @@ import React, { useContext, useEffect, useState } from "react";
 import TaskContainer from "../components/TaskContainer";
 import { UserContext } from "../UserContext";
 import Loader from "../components/Loader";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 function Index() {
-  const { user,ready } = useContext(UserContext);
+  const { user, ready } = useContext(UserContext);
   const [task, setTasks] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -13,7 +14,6 @@ function Index() {
         const response = await axios.get("/home");
         const data = response.data;
         setTasks(data);
-        console.log(task);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -26,23 +26,30 @@ function Index() {
   //     <div className="h-[100vh] flex justify-center itmes-center mt-10"><Loader/></div>
   //   )
   // }
+
   return (
-    <div className="w-full flex justify-center">
+    <div className="">
       <div className="mt-10">
-        <h3 className="mb-2 text-[#1E1E1E] font-semibold text-center w-full">Hello {user?.username}!</h3>
-        {task?.length > 0 &&
-          task.map((tasks) => {
-            return (
-              <div className="mb-4" key={tasks._id}>
-                <TaskContainer
-                  Title={tasks.tasktitle}
-                  Task={tasks.todo}
-                  Id={tasks._id}
-                />
-                ;
-              </div>
-            );
-          })}
+        <h3 className="mb-2 text-[#1E1E1E] font-semibold text-center w-full">
+          Hello {user?.username}!
+        </h3>
+        <Masonry
+          className="my-masonry-grid px-6"
+          columnClassName="my-masonry-grid_column"
+        >
+          {task?.length > 0 &&
+            task.map((tasks) => {
+              return (
+                <div className="my-masonry-grid_item" key={tasks._id}>
+                  <TaskContainer
+                    Title={tasks.tasktitle}
+                    Task={tasks.todo}
+                    Id={tasks._id}
+                  />
+                </div>
+              );
+            })}
+        </Masonry>
       </div>
     </div>
   );

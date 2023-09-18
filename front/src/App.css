@@ -141,3 +141,18 @@ body{
   }
  }
  
+
+ .my-masonry-grid {
+  display: flex;
+  width: auto;
+  justify-content:center;
+}
+
+.my-masonry-grid_column {
+  padding-left: 10px; /* Adjust for column gap */
+}
+
+/* Style individual masonry items */
+.my-masonry-grid_item {
+  padding: 10px;
+}

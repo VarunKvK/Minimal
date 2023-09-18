@@ -3,20 +3,25 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import Loader from "../components/Loader";
+import TaskContainer from "../components/TaskContainer";
 
 
 function User() {
   const { user,ready } = useContext(UserContext);
-  // if(!ready){
-  //   return(
-  //     <div className="h-[100vh] flex justify-center itmes-center mt-10"><Loader/></div>
-  //   )
-  // }
-  // useEffect(()=>{
-  //   axios.get("/login").then((data)=>{
-  //     console.log("user", data)
-  //   })
-  // },[])
+  const [task,getTask]=useState()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("/home");
+        const data = response.data;
+        getTask(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  },[])
   return (
     <div>
       {user ? (
@@ -24,19 +29,35 @@ function User() {
           <h1 className="font-semibold text-[2rem] w-full text-center p-4">
             Hello {user?.username}✌
           </h1>
-          <div className="w-full flex justify-center items-center">
+          <div className="w-full p-4 flex justify-center items-center">
             <Link
               to={"/create"}
-              className="relative p-3 text-center w-[30rem] mt-5 bg-[#C0EB69] text-white border-[1px] border-black"
+              className="relative mb-4 p-3 text-center w-[30rem] mt-5 bg-[#C0EB69] text-white border-[1px] border-black"
             >
               Add Task
             </Link>
           </div>
-          <div className="w-full text-center flex justify-center items-center h-[20rem]">
+          {task?(
+            task.length > 0 &&
+              task.map((tasks) => {
+                return (
+                  <div className="w-full flex justify-center items-center">
+                  <div className="mb-4" key={tasks._id}>
+                    <TaskContainer
+                      Title={tasks.tasktitle}
+                      Task={tasks.todo}
+                      Id={tasks._id}
+                    />
+                    ;
+                  </div>
+                  </div>
+                );
+              })
+          ):(<div className="w-full text-center flex justify-center items-center h-[20rem]">
             <h1 className="text-[2rem] font-bold text-[#929292]">
               !!Haven't create any task!!
             </h1>
-          </div>
+          </div>)}
         </>
       ) : (
         <div className="w-full mt-20 grid gap-4 place-content-center">

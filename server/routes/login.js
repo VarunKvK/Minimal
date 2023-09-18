@@ -45,16 +45,14 @@ login
           {},
           async (err, token) => {
             if (err) throw err;
-            res.cookie("UserToken", token,{httpOnly:true}).status(200).json(userSearch);
+            res.cookie("UserToken", token,{httpOnly:true,secure:true,sameSite: 'None'}).status(200).json(userSearch);
           }
         );
       } else {
         return res.status(401).json({ message: "Invalid password" });
-        // console.log("Password Incorrect");
       }
     } else {
       return res.status(401).json({ message: "User not found" })
-      // console.log("User Doesn't Exist");
     }
   });
 

@@ -10,9 +10,7 @@ taskRoute
 
   .get(async(req,res)=>{
     const {id}=req.body;
-    console.log({id})
     const data=await Task.findById(id)
-    console.log(data)
     res.json(data)
   })
 
