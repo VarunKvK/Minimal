@@ -4,11 +4,11 @@ import { Link, useParams } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import Loader from "../components/Loader";
 import TaskContainer from "../components/TaskContainer";
-
+import SmallTask from "../components/SmallTask";
 
 function User() {
-  const { user,ready } = useContext(UserContext);
-  const [task,getTask]=useState()
+  const { user, ready } = useContext(UserContext);
+  const [task, getTask] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,7 +21,7 @@ function User() {
       }
     };
     fetchData();
-  },[])
+  }, []);
   return (
     <div>
       {user ? (
@@ -37,27 +37,28 @@ function User() {
               Add Task
             </Link>
           </div>
-          {task?(
-            task.length > 0 &&
+          <div className="w-full grid grid-cols-1 place-items-center">
+            {task ? (
+              task.length > 0 &&
               task.map((tasks) => {
                 return (
-                  <div className="w-full flex justify-center items-center">
-                  <div className="mb-4" key={tasks._id}>
-                    <TaskContainer
+                  <div className="mb-4 ml-2" key={tasks._id}>
+                    <SmallTask
                       Title={tasks.tasktitle}
                       Task={tasks.todo}
                       Id={tasks._id}
                     />
-                    ;
-                  </div>
                   </div>
                 );
               })
-          ):(<div className="w-full text-center flex justify-center items-center h-[20rem]">
-            <h1 className="text-[2rem] font-bold text-[#929292]">
-              !!Haven't create any task!!
-            </h1>
-          </div>)}
+            ) : (
+              <div className="w-full text-center flex justify-center items-center h-[20rem]">
+                <h1 className="text-[2rem] font-bold text-[#929292]">
+                  !!Haven't create any task!!
+                </h1>
+              </div>
+            )}
+          </div>
         </>
       ) : (
         <div className="w-full mt-20 grid gap-4 place-content-center">

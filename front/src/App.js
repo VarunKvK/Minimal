@@ -24,7 +24,7 @@ function App() {
             <Route path={"/register"} element={<Register/>}/>
             <Route path={"/login"} element={<Login/>}/>
             <Route path={user ? "/user":null} element={<User/>}/>
-            <Route path={"/:username"} element={<User/>}/>
+            <Route path={"/:username/:id"} element={<User/>}/>
             <Route path={"/create"} element={<CreateTask/>}/>
             <Route path={"/editTask/:title/:id"} element={<CreateTask/>}/>
           </Route>

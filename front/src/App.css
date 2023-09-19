@@ -2,20 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-  padding:0;
-  margin:0;
+body {
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
-::-webkit-scrollbar{
-  width: .3rem;
-  background-color: #1E1E1E;
+::-webkit-scrollbar {
+  width: 0.3rem;
+  background-color: #1e1e1e;
 }
 
-::-webkit-scrollbar-thumb{
-  background:#C0EB69 ;
+::-webkit-scrollbar-thumb {
+  background: #c0eb69;
 }
 
 /* CheckBox Css */
@@ -72,80 +72,79 @@ body{
 .newtons-cradle {
   --uib-size: 50px;
   --uib-speed: 1.2s;
-  --uib-color: #C0EB69;
+  --uib-color: #c0eb69;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: var(--uib-size);
   height: var(--uib-size);
- }
- 
- .newtons-cradle__dot {
+}
+
+.newtons-cradle__dot {
   position: relative;
   display: flex;
   align-items: center;
   height: 100%;
   width: 25%;
   transform-origin: center top;
- }
- 
- .newtons-cradle__dot::after {
-  content: '';
+}
+
+.newtons-cradle__dot::after {
+  content: "";
   display: block;
   width: 100%;
   height: 25%;
   border-radius: 50%;
   background-color: var(--uib-color);
- }
- 
- .newtons-cradle__dot:first-child {
-  animation: swing var(--uib-speed) linear infinite;
- }
- 
- .newtons-cradle__dot:last-child {
-  animation: swing2 var(--uib-speed) linear infinite;
- }
- 
- @keyframes swing {
-  0% {
-   transform: rotate(0deg);
-   animation-timing-function: ease-out;
-  }
- 
-  25% {
-   transform: rotate(70deg);
-   animation-timing-function: ease-in;
-  }
- 
-  50% {
-   transform: rotate(0deg);
-   animation-timing-function: linear;
-  }
- }
- 
- @keyframes swing2 {
-  0% {
-   transform: rotate(0deg);
-   animation-timing-function: linear;
-  }
- 
-  50% {
-   transform: rotate(0deg);
-   animation-timing-function: ease-out;
-  }
- 
-  75% {
-   transform: rotate(-70deg);
-   animation-timing-function: ease-in;
-  }
- }
- 
+}
 
- .my-masonry-grid {
+.newtons-cradle__dot:first-child {
+  animation: swing var(--uib-speed) linear infinite;
+}
+
+.newtons-cradle__dot:last-child {
+  animation: swing2 var(--uib-speed) linear infinite;
+}
+
+@keyframes swing {
+  0% {
+    transform: rotate(0deg);
+    animation-timing-function: ease-out;
+  }
+
+  25% {
+    transform: rotate(70deg);
+    animation-timing-function: ease-in;
+  }
+
+  50% {
+    transform: rotate(0deg);
+    animation-timing-function: linear;
+  }
+}
+
+@keyframes swing2 {
+  0% {
+    transform: rotate(0deg);
+    animation-timing-function: linear;
+  }
+
+  50% {
+    transform: rotate(0deg);
+    animation-timing-function: ease-out;
+  }
+
+  75% {
+    transform: rotate(-70deg);
+    animation-timing-function: ease-in;
+  }
+}
+
+.my-masonry-grid {
   display: flex;
   width: auto;
-  justify-content:center;
+  justify-content: center;
 }
 
 .my-masonry-grid_column {
@@ -156,3 +155,4 @@ body{
 .my-masonry-grid_item {
   padding: 10px;
 }
+

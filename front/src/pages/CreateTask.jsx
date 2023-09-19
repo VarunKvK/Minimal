@@ -142,8 +142,8 @@ function CreateTask() {
                     }
                   >
                     <div className="flex items-center p-3 relative">
-                      <h3>@{todo}</h3>
-                      <div className="p-1 text-white absolute right-2 bg-[#C0Eb69] border-[1px] border-[#000]">
+                      <h3 className="capitalize">@{todo}</h3>
+                      <div className="p-1 text-white absolute right-2 bg-[#EB6A6A] border-[1px] border-[#000]">
                         <Delete
                           className="cursor-pointer"
                           onClick={() => removeTasks(todo)}

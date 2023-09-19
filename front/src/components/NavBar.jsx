@@ -10,7 +10,7 @@ function Navbar() {
   const createLink = "/create";
   const isSpecificLink = location.pathname === createLink;
   const userLink = "/user";
-  const loguserLink = `/${user?.username}`;
+  const loguserLink = `/${user?.username}/${user?.id}`;
   const isUserLink = location.pathname === userLink;
   const isLogUserLink = location.pathname === loguserLink;
   const loginLink = "/login";
@@ -30,7 +30,7 @@ function Navbar() {
           <div className="flex items-center gap-12 pt-4">
             {isSpecificLink ? (
               <div className="h-[2.5rem] w-[2.5rem] rounded-full bg-[#1E1E1E] flex justify-center items-center text-center text-white">
-                <Link to={user ? `/${user?.username}` : "/user"}>
+                <Link to={user ? `/${user?.username}/${user?.id}` : "/user"}>
                   <Person />
                 </Link>
               </div>
@@ -51,7 +51,7 @@ function Navbar() {
                   <span className="text-3xl text-[#C0EB6A]">+</span>
                 </Link>
                 <div className="h-[2.5rem] w-[2.5rem] rounded-full bg-[#1E1E1E] flex justify-center items-center text-center text-white">
-                  <Link to={user ? `/${user?.username}` : "/user"}>
+                  <Link to={user ? `/${user?.username}/${user?.id}` : "/user"}>
                     <Person />
                   </Link>
                 </div>
