@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../UserContext";
 import axios from "axios";
 import { Delete, Edit } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
-function SmallTask({ Title, Task, Id }) {
+function SmallTask({ Title, Task, Id, onDelete }) {
   const { user, ready } = useContext(UserContext);
   const [task, getTask] = useState();
 
@@ -19,8 +20,15 @@ function SmallTask({ Title, Task, Id }) {
     };
     fetchData();
   }, []);
+
   return (
-    <div className={Title.length>14 ? "h-[13rem] w-[20rem] bg-[#C0EB69] border-black border-[1px] p-6":"h-[11rem] w-[20rem] bg-[#C0EB69] border-black border-[1px] p-6"}>
+    <div
+      className={
+        Title.length > 14
+          ? "h-[13rem] w-[20rem] bg-[#C0EB69] border-black border-[1px] p-6"
+          : "h-[11rem] w-[20rem] bg-[#C0EB69] border-black border-[1px] p-6"
+      }
+    >
       <h1
         className={
           Title.length > 14
@@ -30,22 +38,22 @@ function SmallTask({ Title, Task, Id }) {
       >
         {Title}
       </h1>
-          <div className="mt-[0.5rem] w-full border-[0.3px] border-[#000]"></div>
-      <div className="w-full flex justify-center mt-6 items-center">
+      <div className="mt-[0.5rem] w-full border-[0.3px] border-[#000]"></div>
+      <div className="w-full flex justify-center mt-4 items-center">
         <div className="relative w-[60%] flex">
-      <div className="p-1 text-white flex items-center justify-center bg-[#EB6A6A] border-[1px] border-[#000] h-[3rem] w-[3rem] rounded-full">
-        <Delete className="cursor-pointer" 
-        // onClick={() => removeTasks(todo)}
-         />
-      </div>
-      <div className="p-1 absolute right-0 text-white flex items-center justify-center bg-[#1E1E1E] border-[1px] border-[#000] h-[3rem] w-[3rem] rounded-full">
-        <Edit className="cursor-pointer" 
-        // onClick={() => removeTasks(todo)}
-        />
-      </div>
+          <div className="p-1 text-white relative flex items-center justify-center bg-[#EB6A6A] border-[1px] border-[#000] h-[3rem] w-[3rem] rounded-full">
+            <Delete className="cursor-pointer" onClick={onDelete} />
+            <p className="absolute -bottom-6 text-[#1E1E1E]">Delete</p>
+          </div>
+          <div className="p-1 absolute right-0 text-white flex items-center justify-center bg-[#8dad4d] border-[1px] border-[#000] h-[3rem] w-[3rem] rounded-full">
+            <Link to={`/editTask/${Title}/${Id}`}>
+              <Edit className="cursor-pointer" />
+              <p className="absolute -bottom-6 text-[#1E1E1E]">Edit</p>
+            </Link>
+          </div>
         </div>
-    </div>
       </div>
+    </div>
   );
 }
 

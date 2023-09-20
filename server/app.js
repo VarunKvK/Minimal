@@ -24,6 +24,7 @@ const login=require("./routes/login")
 const task=require("./routes/task")
 const home=require("./routes/home")
 const edit=require("./routes/editTask")
+const taskDelete=require("./routes/taskDelete")
 
 
 //Database Connection
@@ -40,6 +41,7 @@ app.use(register)
 app.use(login)
 app.use(task)
 app.use(edit)
+app.use(taskDelete)
 
 
 app.listen(Port,()=>{

@@ -153,10 +153,12 @@ function CreateTask() {
                   </div>
                 );
               })}
-            <div className="w-full mt-[10rem] relative">
-              <button className="z-10 relative bg-[#C0EB69] w-full p-4 text-white font-semibold border-[1px] border-black">
-                {id ? "!!!Save this task!!!" :"!!!Create this task!!!"}
-              </button>
+            <div className="w-full mt-[2rem] mb-[2rem] relative">
+              {id?(<button className="z-10 relative bg-[#ebde69] w-full p-4 text-white font-semibold border-[1px] border-black">
+                !!!Save this task!!!
+              </button>):(<button className="z-10 relative bg-[#C0EB69] w-full p-4 text-white font-semibold border-[1px] border-black">
+                !!!Create this task!!!
+              </button>)}
               <div className="absolute w-full p-6 top-4 left-2 font-semibold border-[1px] border-black"></div>
             </div>
           </form>

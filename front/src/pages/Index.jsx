@@ -29,7 +29,7 @@ function Index() {
 
   return (
     <div className="">
-      <div className="mt-10">
+      {user? (<div className="mt-6">
         <h3 className="mb-2 text-[#1E1E1E] font-semibold text-center w-full">
           Hello {user?.username}!
         </h3>
@@ -55,7 +55,7 @@ function Index() {
               })}
           </Masonry>
         </ResponsiveMasonry>
-      </div>
+      </div>):("hello")}
     </div>
   );
 }

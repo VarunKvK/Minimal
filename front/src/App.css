@@ -156,3 +156,8 @@ body {
   padding: 10px;
 }
 
+.about li::before {
+  content: "\25A0";
+  color: #C0EB69;
+  margin-right: 0.5rem; 
+}

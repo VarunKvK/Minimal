@@ -22,6 +22,16 @@ function User() {
     };
     fetchData();
   }, []);
+
+  function removeTasks(taskIdToRemove) {
+    if (task) {
+      axios.delete(`/taskdelete/${taskIdToRemove}`).then(()=>{
+
+        const updatedTaskList = task.filter((tasks) => tasks._id !== taskIdToRemove);
+      getTask(updatedTaskList);
+      })
+    }
+  }
   return (
     <div>
       {user ? (
@@ -47,6 +57,7 @@ function User() {
                       Title={tasks.tasktitle}
                       Task={tasks.todo}
                       Id={tasks._id}
+                      onDelete={()=>removeTasks(tasks._id)}
                     />
                   </div>
                 );

@@ -11,10 +11,10 @@ function TaskContainer({ Title, Task, Id }) {
           <span className="text-xl"> 🏆</span>
         </h1>
         <div
-          className={Task?.length<=3?"grid grid-rows-5 mt-4 gap-6":
+          className={Task?.length<2?"grid grid-rows-3 mt-4 gap-6":
             Task?.length > 4
               ? "grid grid-rows-5 mt-4 gap-6"
-              : "grid grid-rows-3 mt-4 gap-6"
+              : "grid grid-rows-5 mt-4 gap-6"
           }
         >
           {Task?.length > 0 &&
@@ -32,7 +32,7 @@ function TaskContainer({ Title, Task, Id }) {
             </div>
           )}
         </div>
-        {Task?.length > 4 ? (
+        {Task?.length > 3 ? (
           <Link
             className={
               Task?.length > 4

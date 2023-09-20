@@ -2,7 +2,7 @@ import { Person, Settings } from "@mui/icons-material";
 import React, { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { UserContext } from "../UserContext";
-
+import SettingMenu from "../components/Settings"; 
 function Navbar() {
   const { user } = useContext(UserContext);
 
@@ -17,10 +17,12 @@ function Navbar() {
   const isLoginLink = location.pathname === loginLink;
   const registerLink = "/register";
   const isRegisterLink = location.pathname === registerLink;
+  const aboutLink = "/faq";
+  const isAboutLink = location.pathname === aboutLink;
 
   return (
     <div className="w-full">
-      <div className="w-full p-4 pb-2 text-center border-b-[1.7px] border-gray-600">
+      <div className={isAboutLink ?"w-full p-4 px-8 pb-2 text-left border-b-[1.7px] border-gray-600":"w-full p-4 pb-2 text-center border-b-[1.7px] border-gray-600"}>
         <Link to="/" className="text-2xl text-[#1E1E1E] font-bold">
           Minimal<span className="text-[#C0EB6A]">.</span>
         </Link>
@@ -40,9 +42,10 @@ function Navbar() {
                   <Link >
                     <Settings />
                   </Link>
+                  <SettingMenu/>
                 </div>
               </>
-            ) : (
+            ) : isAboutLink ? (null): (
               <>
                 <Link
                   to="/create"
