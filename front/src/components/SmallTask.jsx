@@ -1,25 +1,25 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../UserContext";
-import axios from "axios";
 import { Delete, Edit } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+// import { UserContext } from "../UserContext";
+// import axios from "axios";
 
 function SmallTask({ Title, Task, Id, onDelete }) {
-  const { user, ready } = useContext(UserContext);
-  const [task, getTask] = useState();
+  // const { user, ready } = useContext(UserContext);
+  // const [task, getTask] = useState();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("/home");
-        const data = response.data;
-        getTask(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get("/home");
+  //       const data = response.data;
+  //       getTask(data);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   return (
     <div
