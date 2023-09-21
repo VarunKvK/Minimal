@@ -12,9 +12,11 @@ home
     try {
       if (UserToken) {
         jwt.verify(UserToken, jwtSecret, {}, async (err, token) => {
-          const verified=await Task.find({ tasker: token.id })
+          const id=token.id 
+          const verified=await Task.find({ tasker:id})
+
           if(verified){
-            res.json(await Task.find())
+            res.json(verified)
           }
         });
       } else {

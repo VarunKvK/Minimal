@@ -25,7 +25,7 @@ const task=require("./routes/task")
 const home=require("./routes/home")
 const edit=require("./routes/editTask")
 const taskDelete=require("./routes/taskDelete")
-
+const logout=require("./routes/logout")
 
 //Database Connection
 mongoose.connect(process.env.MONGOOSE_URL)
@@ -42,6 +42,7 @@ app.use(login)
 app.use(task)
 app.use(edit)
 app.use(taskDelete)
+app.use(logout)
 
 
 app.listen(Port,()=>{

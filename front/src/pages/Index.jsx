@@ -25,7 +25,7 @@ function Index() {
 
   return (
     <div className="transition-all duration-300 ease-in-out">
-      {user ? (
+      {user && task?.length > 0 ? (
         <div className="mt-6 mb-6">
           <h3 className="mb-2 text-[#1E1E1E] font-semibold text-center w-full">
             Hello {user?.username}!
@@ -46,6 +46,7 @@ function Index() {
                         Title={tasks.tasktitle}
                         Task={tasks.todo}
                         Id={tasks._id}
+                        User={user.id}
                       />
                     </div>
                   );
@@ -87,12 +88,27 @@ function Index() {
                   Start Journal
                 </div>
               </div>
-              <Link
-                to={"/login"}
-                className="h-[5rem] mt-6 w-full grid items-center bg-[#C0EB69] p-4 text-xl font-semibold text-[#769140] text-center md:rounded-none md:w-[43rem] xl:w-[77rem] lg:w-[61rem] rounded-tl-[4rem] border-[1px] border-[#1E1E1E]"
-              >
-                Get Started
-              </Link>
+              {!user ? (
+                <div className="relative">
+                <Link
+                  to={"/login"}
+                  className="h-[5rem] relative z-10 mt-10 w-full grid items-center bg-[#C0EB69] p-4 text-xl font-semibold text-[#769140] text-center md:rounded-none md:w-[43rem] xl:w-[77rem] lg:w-[61rem] rounded-tl-[4rem] border-[1px] border-[#1E1E1E]"
+                >
+                  Get Started
+                </Link>
+                <div className="h-[5rem] absolute w-full md:w-[43rem] xl:w-[77rem] lg:w-[61rem] p-6 md:top-12 rounded-tl-[4rem] md:rounded-none top-2 left-2 border-[1px] border-black"></div>
+              </div>
+              ) : (
+                <div className="relative">
+                  <Link
+                    to={"/create"}
+                    className="h-[5rem] relative z-10 mt-10 w-full grid items-center bg-[#C0EB69] p-4 text-xl font-semibold text-[#769140] text-center md:rounded-none md:w-[43rem] xl:w-[77rem] lg:w-[61rem] rounded-tl-[4rem] border-[1px] border-[#1E1E1E]"
+                  >
+                    Start Organizing
+                  </Link>
+                  <div className="h-[5rem] absolute w-full md:w-[43rem] xl:w-[77rem] lg:w-[61rem] p-6 md:top-12 rounded-tl-[4rem] md:rounded-none top-2 left-2 border-[1px] border-black"></div>
+                </div>
+              )}
             </div>
           </div>
         </>

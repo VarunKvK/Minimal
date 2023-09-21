@@ -44,15 +44,15 @@ function Navbar() {
               </div>
             ) : isUserLink || isLogUserLink ? (
               <>
-                <div className={open? "h-[2.5rem] w-[2.5rem] rounded-full bg-[#EB6A6A] flex justify-center items-center text-center text-white transition-all duration-300 ease-in-out":"h-[2.5rem] w-[2.5rem] rounded-full bg-[#1E1E1E] flex justify-center items-center text-center text-white transition-all duration-300 ease-in-out"}>
-                    {open? <Close onClick={()=>setOpen(false)} className=" rounded-full text-[#FFF]"/>:<Settings onClick={()=>setOpen(true)}/>}
+                <div className={open? "h-[2.5rem] w-[2.5rem] rounded-full bg-[#EB6A6A] flex justify-center items-center text-center text-white cursor-pointer transition-all duration-300 ease-in-out":"h-[2.5rem] w-[2.5rem] rounded-full bg-[#1E1E1E] flex justify-center items-center text-center text-white transition-all duration-300 ease-in-out"}>
+                    {open? <Close onClick={()=>setOpen(false)} className=" rounded-full text-[#FFF]"/>:<Settings onClick={()=>setOpen(true)} />}
                     {open?<SettingMenu />:null}
                 </div>
               </>
             ) : isAboutLink ? null : (
               <>
                 <Link
-                  to="/create"
+                  to={!user?"/login":"/create"}
                   className="cursor-pointer h-[2.5rem] w-[2.5rem] rounded-full bg-[#1E1E1E] flex justify-center text-center"
                 >
                   <span className="text-3xl text-[#C0EB6A]">+</span>

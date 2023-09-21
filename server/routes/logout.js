@@ -6,7 +6,7 @@ logoutRoute
 
   .post((req, res) => {
     res
-      .cookie("Token", "", {
+      .cookie("UserToken", "", {
         expires: new Date(0),
         httpOnly: true,
         secure: true,

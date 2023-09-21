@@ -48,8 +48,7 @@ function User() {
             </Link>
           </div>
           <div className="w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:px-6 place-items-center mb-4">
-            {task ? (
-              task.length > 0 &&
+            {task?.length > 0  ? (
               task.map((tasks) => {
                 return (
                   <div className="mb-4 ml-2" key={tasks._id}>
@@ -57,17 +56,20 @@ function User() {
                       Title={tasks.tasktitle}
                       Task={tasks.todo}
                       Id={tasks._id}
+                      // Give a warning before deleting 
                       onDelete={()=>removeTasks(tasks._id)}
                     />
                   </div>
                 );
               })
             ) : (
-              <div className="w-full text-center flex justify-center items-center h-[20rem]">
-                <h1 className="text-[2rem] font-bold text-[#929292]">
+              <>
+              <div className="w-full text-center col-span-1 sm:col-span-1 md:col-span-2 lg:col-span-3 flex justify-center items-center h-[20rem]">
+                <h1 className="text-[2rem] font-bold text-[#929292] w-full text-center">
                   !!Haven't create any task!!
                 </h1>
               </div>
+            </>
             )}
           </div>
         </>

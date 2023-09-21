@@ -17,10 +17,10 @@ function Settings() {
         <Link to={"/faq"} className="text-[#1E1E1E] w-auto">
           Faq
         </Link>
-        {user?<button onClick={logout} className="h-[2rem] w-auto mt-6 bg-[#EB6A6A] text-white text-center flex items-center p-4 border-[1px] border-[#1E1E1E]">
+        {user?<button onClick={logout} className=" cursor-pointer h-[2rem] w-auto mt-6 bg-[#EB6A6A] text-white text-center flex items-center p-4 border-[1px] border-[#1E1E1E]">
           Logout
-        </button>:<Link to={"/login"} className="h-[2rem] w-auto mt-6 bg-[#C0EB69] text-white text-center flex items-center p-4 border-[1px] border-[#1E1E1E]">
-          Login
+        </button>:<Link to={"/register"} className="cursor-pointer h-[2rem] w-auto mt-6 bg-[#C0EB69] text-white text-md font-semibold text-center flex items-center p-4 border-[1px] border-[#1E1E1E]">
+          Register
         </Link>}
       </div>
     </div>
