@@ -14,7 +14,6 @@ home
         jwt.verify(UserToken, jwtSecret, {}, async (err, token) => {
           const id=token.id 
           const verified=await Task.find({ tasker:id})
-
           if(verified){
             res.json(verified)
           }
