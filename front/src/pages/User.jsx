@@ -36,18 +36,18 @@ function User() {
     <div>
       {user ? (
         <>
-          <h1 className="font-semibold text-[2rem] w-full text-center p-4">
+          <h1 className="font-semibold lg:text-[2.5rem] capitalize text-[2rem] w-full text-center p-4">
             Hello {user?.username}✌
           </h1>
           <div className="w-full p-4 flex justify-center items-center">
             <Link
               to={"/create"}
-              className="relative mb-4 p-3 text-center w-[30rem] mt-5 bg-[#C0EB69] text-white border-[1px] border-black"
+              className="relative mb-4 sm:mt-0 p-3 text-center w-[30rem] mt-5 bg-[#C0EB69] text-white border-[1px] border-black"
             >
               Add Task
             </Link>
           </div>
-          <div className="w-full grid grid-cols-1 place-items-center">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:px-6 place-items-center mb-4">
             {task ? (
               task.length > 0 &&
               task.map((tasks) => {
