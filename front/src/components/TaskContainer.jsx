@@ -29,7 +29,7 @@ function TaskContainer({ Title, Task, Id, User }) {
             Task.slice(0, 3).map((task, index) => {
               return (
                 <div key={index} className="flex gap-4 items-center">
-                  <CheckBox />
+                  <CheckBox selected={task} checkedId={Id}/>
                   <p className="text-lg md:text-xl font-medium text-[#35421B]">
                     {task}
                   </p>

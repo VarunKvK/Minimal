@@ -9,6 +9,8 @@ function Navbar() {
   const location = useLocation();
   const createLink = "/create";
   const isSpecificLink = location.pathname === createLink;
+  const journalLink = `/${user?.username}/${user?.id}/journal`;
+  const isJournalLink = location.pathname === journalLink;
   const userLink = "/user";
   const loguserLink = `/${user?.username}/${user?.id}`;
   const isUserLink = location.pathname === userLink;
@@ -36,13 +38,13 @@ function Navbar() {
       {!(isLoginLink || isRegisterLink) && (
         <div className="flex justify-center items-center">
           <div className="flex items-center gap-12 pt-4">
-            {isSpecificLink ? (
+            {isSpecificLink  ? (
               <div className="h-[2.5rem] w-[2.5rem] rounded-full bg-[#1E1E1E] flex justify-center items-center text-center text-white">
                 <Link to={user ? `/${user?.username}/${user?.id}` : "/user"}>
                   <Person />
                 </Link>
               </div>
-            ) : isUserLink || isLogUserLink ? (
+            ) : isUserLink || isLogUserLink || isJournalLink ? (
               <>
                 <div className={open? "h-[2.5rem] w-[2.5rem] rounded-full bg-[#EB6A6A] flex justify-center items-center text-center text-white cursor-pointer transition-all duration-300 ease-in-out":"h-[2.5rem] w-[2.5rem] rounded-full bg-[#1E1E1E] flex justify-center items-center text-center text-white transition-all duration-300 ease-in-out"}>
                     {open? <Close onClick={()=>setOpen(false)} className=" rounded-full text-[#FFF]"/>:<Settings onClick={()=>setOpen(true)} />}

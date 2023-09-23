@@ -11,8 +11,11 @@ import axios from "axios";
 import UserContextProvider, { UserContext } from "./UserContext";
 import Faq from "./pages/Faq";
 import TaskPage from "./pages/TaskPage";
+import Journal from "./pages/UserJournal";
+import CreateJournal from "./pages/CreateJournal";
+import JournalPage from "./pages/JournalPage";
 
-axios.defaults.baseURL="http://localhost:8000"
+axios.defaults.baseURL="http://localhost:8000"//Need to create an ENV File
 axios.defaults.withCredentials=true
 
 function App() {
@@ -26,8 +29,11 @@ function App() {
             <Route path={"/register"} element={<Register/>}/>
             <Route path={"/login"} element={<Login/>}/>
             <Route path={!user ? "/user":null} element={<User/>}/>
-            <Route path={"/:username/:id"} element={<User/>}/>
             <Route path={"/create"} element={<CreateTask/>}/>
+            <Route path={"/createJournal"} element={<CreateJournal/>}/>
+            <Route path={"/:username/:id?"} element={<User/>}/>
+            <Route path={"/:username/:id/journal"} element={<Journal/>}/>
+            <Route path={"/:username/:id/journal/:title"} element={<JournalPage/>}/>
             <Route path={"/task/:userId/:id"} element={<TaskPage/>}/>
             <Route path={"/editTask/:title/:id"} element={<CreateTask/>}/>
             <Route path={"/faq"} element={<Faq/>}/>

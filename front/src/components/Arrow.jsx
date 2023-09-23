@@ -13,9 +13,9 @@ function Arrow() {
         <path
           d="M15 47.5L47.5 15M47.5 15V46.2M47.5 15H16.3"
           stroke="white"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     </div>

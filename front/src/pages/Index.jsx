@@ -6,6 +6,7 @@ import Loader from "../components/Loader";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { Link } from "react-router-dom";
 import Arrow from "../components/Arrow";
+import { QuestionMark } from "@mui/icons-material";
 
 function Index() {
   const { user, ready } = useContext(UserContext);
@@ -25,6 +26,7 @@ function Index() {
 
   return (
     <div className="transition-all duration-300 ease-in-out">
+            <button onClick={()=>window.location="/faq"} className="fixed bottom-2 right-2 h-[2rem] w-[2rem] bg-[#C0EB69] border-[1px] border-black rounded-full flex justify-center items-center text-white"><QuestionMark/></button>
       {user && task?.length > 0 ? (
         <div className="mt-6 mb-6">
           <h3 className="mb-2 text-[#1E1E1E] font-semibold text-center w-full">

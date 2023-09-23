@@ -1,12 +1,12 @@
-const mongoose=require("mongoose")
-const Users=require("./Users")
+const mongoose = require("mongoose");
+const Users = require("./Users");
 
-const taskSC=new mongoose.Schema({
-    tasker:{type:mongoose.Schema.Types.ObjectId,ref:"User"},
-    tasktitle:{type:String,unique:true,required:true},
-    todo:[String]
-})
+const taskSC = new mongoose.Schema({
+  tasker: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  tasktitle: { type: String, required: true },
+  todo: [{ type: String, required: true }],
+});
 
-const Task=new mongoose.model("Task",taskSC)
+const Task = new mongoose.model("Task", taskSC);
 
-module.exports=Task
+module.exports = Task;

@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Delete, Edit } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-// import { UserContext } from "../UserContext";
+import { UserContext } from "../UserContext";
 // import axios from "axios";
 
 function SmallTask({ Title, Task, Id, onDelete }) {
-  // const { user, ready } = useContext(UserContext);
+  const { user, ready } = useContext(UserContext);
   // const [task, getTask] = useState();
 
   // useEffect(() => {
@@ -29,16 +29,16 @@ function SmallTask({ Title, Task, Id, onDelete }) {
           : "h-auto w-[20rem] bg-[#C0EB69] border-black border-[1px] p-6"
       }
     >
-      <h1
+      <Link to={`/task/${user.id}/${Id}?taskTitle=${Title}`}
         className={
           Title.length > 14
-            ? "text-2xl md:text-2xl font-semibold text-[#1E1E1E] text-center"
-            : "text-3xl md:text-3xl font-semibold text-[#1E1E1E] text-center"
+            ? "text-2xl md:text-2xl font-semibold text-[#1E1E1E] text-center flex items-center justify-center"
+            : "text-3xl md:text-3xl font-semibold text-[#1E1E1E] text-center flex items-center justify-center"
           
         }
       >
-        {Title}
-      </h1>
+        <span className="text-sm">😀</span>{Title}<span className="text-sm">😀</span>
+      </Link>
       <div className="mt-[0.5rem] w-full border-[0.3px] border-[#000]"></div>
       <div className="w-full flex justify-center mt-4 items-center">
         <div className="relative w-[60%] flex mb-4 ">

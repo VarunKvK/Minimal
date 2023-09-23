@@ -10,19 +10,31 @@ taskRoute
 
   .get(async(req,res)=>{
     const {id}=req.body;
-    const data=await Task.findById(id)
-    res.json(data)
+
+    if(id){
+      const data=await Task.findById(id)
+      res.status(200).json(data)
+    }else{
+      res.status(500).json({ message: "Server error" });
+    }
   })
 
   .put(async(req,res)=>{
     const {id,task}=req.body
-    console.log(task)
-    const verifyId=await Task.findById(id)
-    verifyId.set({
-      tasktitle:task.tasktitle,
-      todo:task.todoList
-    })
-    await verifyId.save()
+    if(id){
+      const verifyId=await Task.findById(id)
+      if(verifyId){
+        verifyId.set({
+          tasktitle:task.tasktitle,
+          todo:task.todoList
+        })
+        await verifyId.save()
+        res.status(200).json({ message: "Id is found" })
+      }else{
+        console.log("The id is not found in TaskModule")
+        res.status(500).json({ message: "Id is not found" })
+      }
+    }
   })
 
 

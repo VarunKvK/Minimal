@@ -5,8 +5,10 @@ import { UserContext } from "../UserContext";
 import Loader from "../components/Loader";
 import TaskContainer from "../components/TaskContainer";
 import SmallTask from "../components/SmallTask";
+import { QuestionMark } from "@mui/icons-material";
 
 function User() {
+  const {id}=useParams();
   const { user, ready } = useContext(UserContext);
   const [task, getTask] = useState();
 
@@ -23,28 +25,36 @@ function User() {
     fetchData();
   }, []);
 
-  function removeTasks(taskIdToRemove) {
+  async function removeTasks(taskIdToRemove) {
     if (task) {
-      axios.delete(`/taskdelete/${taskIdToRemove}`).then(()=>{
+      await axios.delete(`/taskdelete/${taskIdToRemove}`).then(()=>{
 
         const updatedTaskList = task.filter((tasks) => tasks._id !== taskIdToRemove);
       getTask(updatedTaskList);
       })
     }
   }
+
   return (
     <div>
+      <button onClick={()=>window.location="/faq"} className="fixed bottom-2 right-2 h-[2rem] w-[2rem] bg-[#C0EB69] border-[1px] border-black rounded-full flex justify-center items-center text-white"><QuestionMark/></button>
       {user ? (
         <>
           <h1 className="font-semibold lg:text-[2.5rem] capitalize text-[2rem] w-full text-center p-4">
-            Hello {user?.username}✌
+            Hello {user?.username}<span className="">✌</span>
           </h1>
-          <div className="w-full p-4 flex justify-center items-center">
+          <div className="w-full p-4 flex justify-center items-center gap-4">
             <Link
               to={"/create"}
               className="relative mb-4 sm:mt-0 p-3 text-center w-[30rem] mt-5 bg-[#C0EB69] text-white border-[1px] border-black"
             >
               Add Task
+            </Link>
+            <Link
+              to={`/${user.username}/${user.id}/journal`}
+              className="relative mb-4 sm:mt-0 p-3 text-center w-[30rem] mt-5 bg-[#699deb] text-white border-[1px] border-black"
+            >
+            Jounal
             </Link>
           </div>
           <div className="w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:px-6 place-items-center mb-4">
