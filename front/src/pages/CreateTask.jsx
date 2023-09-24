@@ -1,9 +1,14 @@
 import { Delete } from "@mui/icons-material";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import SaveDialog from "../components/alerts/SaveDialog";
+import Journaled from "../components/alerts/Journaled";
+import { UserContext } from "../UserContext";
 
 function CreateTask() {
+  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
   const { id } = useParams();
   const [task, setTask] = useState({
     tasktitle: "",
@@ -13,8 +18,8 @@ function CreateTask() {
   useEffect(() => {
     const idData = async () => {
       if (id) {
-        await axios.get("/editTaskcreate/"+id).then((res) => {
-          const data=res.data
+        await axios.get("/editTaskcreate/" + id).then((res) => {
+          const data = res.data;
           setTask({
             tasktitle: data.tasktitle,
             todoList: data.todo,
@@ -23,7 +28,7 @@ function CreateTask() {
       }
     };
     idData();
-  },[id]);
+  }, [id]);
 
   function getTaskInput(e) {
     e.preventDefault();
@@ -37,6 +42,8 @@ function CreateTask() {
   }
 
   const [error, setError] = useState({});
+  const [save, setSave] = useState(false);
+  const [created, setCreate] = useState(false);
 
   function validation() {
     const newError = {};
@@ -72,9 +79,23 @@ function CreateTask() {
     try {
       if (validation()) {
         if (id) {
-          await axios.put("/taskcreate", { id, task });
+          await axios
+            .put("/taskcreate", {
+              id,
+              tasktitle: task.tasktitle,
+            todoList: task.todoList,
+            })
+            .then(() => {
+              setSave(true);
+              navigate(`/${user.username}/${user.id}`);
+            });
         } else {
-          await axios.post("/taskcreate", { task });
+          setCreate(true);
+          navigate(`/${user.username}/${user.id}`);
+          await axios.post("/taskcreate", {
+            tasktitle: task.tasktitle,
+          todoList: task.todoList,
+          });
         }
       }
     } catch (err) {
@@ -84,11 +105,15 @@ function CreateTask() {
   return (
     <div className="flex md:justify-center lg:justify-start">
       <div className="w-full md:w-[90%] lg:w-[60%]">
-        {id ? <h1 className="font-bold text-[1.5rem] text-[#1E1E1E] w-full text-center p-4 md:text-[2rem] lg:text-[3rem] lg:text-left md:px-8">
-          Edit Your Task
-        </h1>:(<h1 className="font-bold text-[1.5rem] text-[#1E1E1E] w-full text-center p-4 md:text-[2rem] lg:text-[3rem] lg:text-left md:px-8">
-          Create Task
-        </h1>)}
+        {id ? (
+          <h1 className="font-bold text-[1.5rem] text-[#1E1E1E] w-full text-center p-4 md:text-[2rem] lg:text-[3rem] lg:text-left md:px-8">
+            Edit Your Task
+          </h1>
+        ) : (
+          <h1 className="font-bold text-[1.5rem] text-[#1E1E1E] w-full text-center p-4 md:text-[2rem] lg:text-[3rem] lg:text-left md:px-8">
+            Create Task
+          </h1>
+        )}
         <div className="px-8">
           <form method="post" onSubmit={postTasks}>
             <div className="mb-10 grid gap-1">
@@ -142,7 +167,7 @@ function CreateTask() {
                     }
                   >
                     <div className="flex items-center p-3 relative">
-                      <h3 className="capitalize">@{todo}</h3>
+                      <h3 className="capitalize"> {!id ? todo : todo.name}</h3>
                       <div className="p-1 text-white absolute right-2 bg-[#EB6A6A] border-[1px] border-[#000]">
                         <Delete
                           className="cursor-pointer"
@@ -154,16 +179,30 @@ function CreateTask() {
                 );
               })}
             <div className="w-full mt-[2rem] mb-[2rem] relative">
-              {id?(<button className="z-10 relative bg-[#ebde69] w-full p-4 text-white font-semibold border-[1px] border-black">
-                !!!Save this task!!!
-              </button>):(<button className="z-10 relative bg-[#C0EB69] w-full p-4 text-white font-semibold border-[1px] border-black">
-                !!!Create this task!!!
-              </button>)}
+              {id ? (
+                <button className="z-10 relative bg-[#ebde69] w-full p-4 text-white font-semibold border-[1px] border-black">
+                  !!!Save this task!!!
+                </button>
+              ) : (
+                <button className="z-10 relative bg-[#C0EB69] w-full p-4 text-white font-semibold border-[1px] border-black">
+                  !!!Create this task!!!
+                </button>
+              )}
               <div className="absolute w-full p-6 top-4 left-2 font-semibold border-[1px] border-black"></div>
             </div>
           </form>
         </div>
       </div>
+      {save ? (
+        <div className="absolute z-20 p-4 h-full flex justify-center items-center w-full backdrop-blur-sm">
+          <SaveDialog Title={task.tasktitle} />
+        </div>
+      ) : null}
+      {created ? (
+        <div className="absolute z-20 p-4 h-full flex justify-center items-center w-full backdrop-blur-sm">
+          <Journaled Title={task.tasktitle} Id={id} />
+        </div>
+      ) : null}
     </div>
   );
 }

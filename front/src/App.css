@@ -161,3 +161,8 @@ body {
   color: #C0EB69;
   margin-right: 0.5rem; 
 }
+.completed-task {
+  opacity: 0.6; 
+  text-decoration: line-through;
+  pointer-events: none;
+}

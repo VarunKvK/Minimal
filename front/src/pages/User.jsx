@@ -54,7 +54,7 @@ function User() {
               to={`/${user.username}/${user.id}/journal`}
               className="relative mb-4 sm:mt-0 p-3 text-center w-[30rem] mt-5 bg-[#699deb] text-white border-[1px] border-black"
             >
-            Jounal
+            Journal
             </Link>
           </div>
           <div className="w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:px-6 place-items-center mb-4">

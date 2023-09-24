@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../UserContext";
 import { Link } from "react-router-dom";
-import { QuestionMark, Task } from "@mui/icons-material";
+import { QuestionMark, journal } from "@mui/icons-material";
 import axios from "axios";
 import JournalContainer from "../components/JournalContainer";
 
@@ -18,6 +18,14 @@ function Journal() {
     };
     fetchData();
   }, []);
+  async function removejournals(journalIdToRemove) {
+    if (journal) {
+      await axios.delete(`/journaldelete/${journalIdToRemove}`).then(()=>{
+        const updatedjournalList = journal.filter((journals) => journals._id !== journalIdToRemove);
+        getJournal(updatedjournalList);
+      })
+    }
+  }
   return (
     <div>
       <button
@@ -35,19 +43,19 @@ function Journal() {
           <div className="w-full p-4 flex justify-center items-center gap-4">
             <Link
               to={"/createJournal"}
-              className="relative mb-4 sm:mt-0 p-3 text-center w-[30rem] mt-5 bg-[#699deb]  text-white border-[1px] border-black"
+              className="relative  sm:mt-0 p-3 text-center w-[30rem] mt-5 bg-[#699deb]  text-white border-[1px] border-black"
             >
               Add Journal
             </Link>
             <Link
               to={`/${user.username}/${user.id}`}
-              className="relative mb-4 sm:mt-0 p-3 text-center w-[30rem] mt-5 bg-[#C0EB69] text-white border-[1px] border-black"
+              className="relative  sm:mt-0 p-3 text-center w-[30rem] mt-5 bg-[#C0EB69] text-white border-[1px] border-black"
             >
               Task
             </Link>
           </div>
-
-          {journal?.length > 0 ? (<div className="w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:px-6 place-items-center mb-4">
+          <p className="w-full text-center mb-4"><span>🌍</span>Welcome to your world where you express yourself<span>🌍</span></p>
+          {journal?.length > 0 ? (<div className="w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:px-12 place-items-center mb-4">
             {journal?.length > 0 &&
               journal?.map((data, index) => {
                 return (
@@ -55,7 +63,7 @@ function Journal() {
                   className=""
                     key={index}
                   >
-                    <JournalContainer Id={data._id} Title={data.journaltitle} Journal={data.journal} Time={data.timestamp}/>
+                    <JournalContainer Id={data._id} onDelete={()=>removejournals(data._id)} Title={data.journaltitle} Journal={data.journal} Time={data.timestamp}/>
                   </div>
                 );
               })}
@@ -75,7 +83,7 @@ function Journal() {
             Hello User?
           </h1>
           <h2 className="font-semibold text-2xl text-[#cfcfcf]">
-            Login to create your tasks
+            Login to create your journals
           </h2>
           <Link
             to={"/login"}

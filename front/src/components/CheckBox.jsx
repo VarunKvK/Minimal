@@ -1,17 +1,16 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 
-function CheckBox({selected,checkedId}) {
-console.log(selected)
-  async function select(e){
-    const {name}=e.target;
-    await axios.put(`/completeTask/${checkedId}`,{name})
+function CheckBox({ selected, checkedId,Checked }) {
+  async function select(e) {
+    const { name, checked } = e.target;
+    await axios.put(`/completeTask/${checkedId}`, { name, completed: checked });
   }
 
   return (
     <div>
       <label className="container">
-        <input type="checkbox" onChange={select} name={selected}/>
+        <input type="checkbox" onChange={select} name={selected} checked={Checked ? "checked":null}/>
         <div className="checkmark"></div>
       </label>
     </div>

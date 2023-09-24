@@ -1,14 +1,22 @@
-import { Close, Person, Settings } from "@mui/icons-material";
+import {
+  AddTaskOutlined,
+  Close,
+  NotesOutlined,
+  Person,
+  Settings,
+} from "@mui/icons-material";
 import React, { useContext, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import SettingMenu from "../components/Settings";
 function Navbar() {
   const { user } = useContext(UserContext);
-  const [open, setOpen]  = useState(false);
+  const [open, setOpen] = useState(false);
   const location = useLocation();
   const createLink = "/create";
   const isSpecificLink = location.pathname === createLink;
+  const createJournalLink = "/createJournal";
+  const iscreateJournalLink = location.pathname === createJournalLink;
   const journalLink = `/${user?.username}/${user?.id}/journal`;
   const isJournalLink = location.pathname === journalLink;
   const userLink = "/user";
@@ -38,7 +46,13 @@ function Navbar() {
       {!(isLoginLink || isRegisterLink) && (
         <div className="flex justify-center items-center">
           <div className="flex items-center gap-12 pt-4">
-            {isSpecificLink  ? (
+            {isSpecificLink ? (
+              <div className="h-[2.5rem] w-[2.5rem] rounded-full bg-[#1E1E1E] flex justify-center items-center text-center text-white">
+                <Link to={user ? `/${user?.username}/${user?.id}` : "/user"}>
+                  <Person />
+                </Link>
+              </div>
+            ) : iscreateJournalLink ? (
               <div className="h-[2.5rem] w-[2.5rem] rounded-full bg-[#1E1E1E] flex justify-center items-center text-center text-white">
                 <Link to={user ? `/${user?.username}/${user?.id}` : "/user"}>
                   <Person />
@@ -46,24 +60,53 @@ function Navbar() {
               </div>
             ) : isUserLink || isLogUserLink || isJournalLink ? (
               <>
-                <div className={open? "h-[2.5rem] w-[2.5rem] rounded-full bg-[#EB6A6A] flex justify-center items-center text-center text-white cursor-pointer transition-all duration-300 ease-in-out":"h-[2.5rem] w-[2.5rem] rounded-full bg-[#1E1E1E] flex justify-center items-center text-center text-white transition-all duration-300 ease-in-out"}>
-                    {open? <Close onClick={()=>setOpen(false)} className=" rounded-full text-[#FFF]"/>:<Settings onClick={()=>setOpen(true)} />}
-                    {open?<SettingMenu />:null}
+                <div
+                  className={
+                    open
+                      ? "h-[2.5rem] w-[2.5rem] rounded-full bg-[#EB6A6A] flex justify-center items-center text-center text-white cursor-pointer transition-all duration-300 ease-in-out"
+                      : "h-[2.5rem] w-[2.5rem] rounded-full bg-[#1E1E1E] flex justify-center items-center text-center text-white transition-all duration-300 ease-in-out"
+                  }
+                >
+                  {open ? (
+                    <Close
+                      onClick={() => setOpen(false)}
+                      className=" rounded-full text-[#FFF]"
+                    />
+                  ) : (
+                    <Settings onClick={() => setOpen(true)} />
+                  )}
+                  {open ? <SettingMenu /> : null}
                 </div>
               </>
             ) : isAboutLink ? null : (
               <>
-                <Link
-                  to={!user?"/login":"/create"}
+                {user ?<Link
+                  to={!user ? "/login" : "/create"}
                   className="cursor-pointer h-[2.5rem] w-[2.5rem] rounded-full bg-[#1E1E1E] flex justify-center text-center"
                 >
-                  <span className="text-3xl text-[#C0EB6A]">+</span>
-                </Link>
+                  <span
+                    onClick={() => (window.location = "/create")}
+                    className="text-3xl text-[#C0EB6A]"
+                  >
+                    <AddTaskOutlined />
+                  </span>
+                </Link>:null}
                 <div className="h-[2.5rem] w-[2.5rem] rounded-full bg-[#1E1E1E] flex justify-center items-center text-center text-white">
                   <Link to={user ? `/${user?.username}/${user?.id}` : "/user"}>
                     <Person />
                   </Link>
                 </div>
+                {user ?<Link
+                  to={!user ? "/login" : "/createJournal"}
+                  className="cursor-pointer h-[2.5rem] w-[2.5rem] rounded-full bg-[#1E1E1E] flex justify-center text-center"
+                >
+                  <span
+                    onClick={() => (window.location = "/createJournal")}
+                    className="text-3xl text-[#699deb]"
+                  >
+                    <NotesOutlined />
+                  </span>
+                </Link>:null}
               </>
             )}
           </div>

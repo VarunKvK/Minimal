@@ -2,13 +2,15 @@ import React from "react";
 import CheckBox from "./CheckBox";
 import { Link } from "react-router-dom";
 
-function TaskContainer({ Title, Task, Id, User }) {
+function TaskContainer({ Title, Task, Id, User, setTasks }) {
+  console.log(Task)
+
   return (
     <div className="bg-[#C0EB69] border-black border-[1px] p-6 transition-all duration-100 ease-in-out">
       <div className="relative">
         <h1
           className={
-            Title.length > 14
+            Title?.length > 14
               ? "text-2xl md:text-3xl flex items-center font-semibold text-[#1E1E1E]"
               : "text-3xl md:text-4xl flex items-center font-semibold text-[#1E1E1E]"
           }
@@ -28,15 +30,29 @@ function TaskContainer({ Title, Task, Id, User }) {
           {Task?.length > 0 &&
             Task.slice(0, 3).map((task, index) => {
               return (
-                <div key={index} className="flex gap-4 items-center">
-                  <CheckBox selected={task} checkedId={Id}/>
-                  <p className="text-lg md:text-xl font-medium text-[#35421B]">
-                    {task}
+                <div
+                  key={index}
+                  className={`flex gap-4 items-center ${
+                    task.completed ? "completed-task" : ""
+                  }`}
+                >
+                  <CheckBox
+                    // onCheckBoxChange={handleCheckBoxChange}
+                    selected={task.name}
+                    checkedId={Id}
+                    Checked={task.completed}
+                  />
+                  <p
+                    className={`text-lg md:text-xl font-medium ${
+                      task.completed ? "text-[#ffffff]" : "text-[#35421B]"
+                    }`}
+                  >
+                    {task.name}
                   </p>
                 </div>
               );
             })}
-          {Task.length > 3 && (
+          {Task?.length > 3 && (
             <div className="text-lg md:text-xl font-medium text-[#35421B]">
               ....
             </div>
@@ -46,7 +62,7 @@ function TaskContainer({ Title, Task, Id, User }) {
           <Link
             to={`/task/${User}/${Id}?taskTitle=${Title}`}
             className={
-              Task?.length > 4
+              Task?.length > 3
                 ? "absolute bottom-0 text-center text-[0.8rem] md:text-sm  p-3 bg-white h-auto w-full font-bold border-black border-[1px]"
                 : "hidden"
             }

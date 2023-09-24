@@ -31,6 +31,7 @@ function App() {
             <Route path={!user ? "/user":null} element={<User/>}/>
             <Route path={"/create"} element={<CreateTask/>}/>
             <Route path={"/createJournal"} element={<CreateJournal/>}/>
+            <Route path={"/editJournal/:title/:id"} element={<CreateJournal/>}/>
             <Route path={"/:username/:id?"} element={<User/>}/>
             <Route path={"/:username/:id/journal"} element={<Journal/>}/>
             <Route path={"/:username/:id/journal/:title"} element={<JournalPage/>}/>

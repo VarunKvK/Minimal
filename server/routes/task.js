@@ -8,56 +8,67 @@ const taskRoute = express.Router();
 taskRoute
   .route("/taskcreate")
 
-  .get(async(req,res)=>{
-    const {id}=req.body;
+  .get(async (req, res) => {
+    const { id } = req.body;
 
-    if(id){
-      const data=await Task.findById(id)
-      res.status(200).json(data)
-    }else{
+    if (id) {
+      const data = await Task.findById(id);
+      res.status(200).json(data);
+    } else {
       res.status(500).json({ message: "Server error" });
     }
   })
 
-  .put(async(req,res)=>{
-    const {id,task}=req.body
-    if(id){
-      const verifyId=await Task.findById(id)
-      if(verifyId){
+  .put(async (req, res) => {
+    const { id, tasktitle,todoList } = req.body;
+    console.log(todoList)
+    if (id) {
+      const verifyId = await Task.findById(id);
+      const transformedTodoList = todoList.map((item) => ({
+        name: item,
+        completed: false,
+      }));
+      if (verifyId) {
         verifyId.set({
-          tasktitle:task.tasktitle,
-          todo:task.todoList
-        })
-        await verifyId.save()
-        res.status(200).json({ message: "Id is found" })
-      }else{
-        console.log("The id is not found in TaskModule")
-        res.status(500).json({ message: "Id is not found" })
+          tasktitle: tasktitle,
+          todo: transformedTodoList,
+        });
+        await verifyId.save();
+        res.status(200).json({ message: "Task updated successfully" });
+      } else {
+        console.log("The id is not found in TaskModule");
+        res.status(500).json({ message: "Id is not found" });
       }
     }
   })
 
-
   .post(async (req, res) => {
     try {
-      const { task } = req.body;
+      const { tasktitle,todoList } = req.body;
+      console.log(tasktitle,todoList)
       const { UserToken } = req.cookies;
-      
+
       if (UserToken) {
         jwt.verify(UserToken, jwtSecret, {}, async (err, token) => {
           if (err) throw err;
-
+          const transformedTodoList = todoList.map((item) => ({
+            name: item,
+            completed: false,
+          }));
           await Task.create({
             tasker: token.id,
-            tasktitle: task.tasktitle,
-            todo: task.todoList,
+            tasktitle: tasktitle,
+            todo: transformedTodoList,
           });
+          res.status(201).json({ message: "Task created successfully" });
         });
-      }else{
-        console.log("Some issue with token")
+      } else {
+        console.log("Some issue with token");
+        res.status(401).json({ message: "Unauthorized" });
       }
     } catch (err) {
       console.log(err);
+      res.status(500).json({ message: "Internal server error" });
     }
   });
 

@@ -27,6 +27,25 @@ journalRoute
       console.log(err);
     }
   })
+  .put(async(req,res)=>{
+    const {id,text,formattedTimestamp}=req.body
+    if(id){
+      const verifyId=await Journal.findById(id)
+      if(verifyId){ 
+        verifyId.set({
+            journaltitle: text.journalTitle,
+            journal: text.journal,
+            timestamp: formattedTimestamp
+        })
+        await verifyId.save()
+        res.status(200).json({ message: "Id is found" })
+      }else{
+        console.log("The id is not found in TaskModule")
+        res.status(500).json({ message: "Id is not found" })
+      }
+    }
+  })
+
   .post(async (req, res) => {
     const { text,formattedTimestamp } = req.body;
     const { UserToken } = req.cookies;
