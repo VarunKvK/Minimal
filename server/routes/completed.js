@@ -9,14 +9,12 @@ completeRoute.route("/completeTask/:id").put(async (req, res) => {
     console.log(completed)
   try {
     const verifyId = await Task.findById(id);
-console.log(verifyId)
     if (!verifyId) {
       return res.status(404).json({ message: "Task not found" });
     }
 
 
     const todoItem = verifyId.todo.find((item) => item.name === name);
-    console.log(todoItem)
     if (!todoItem) {
       return res.status(400).json({ message: "Todo item not found in the task" });
     }

@@ -21,7 +21,6 @@ taskRoute
 
   .put(async (req, res) => {
     const { id, tasktitle,todoList } = req.body;
-    console.log(todoList)
     if (id) {
       const verifyId = await Task.findById(id);
       const transformedTodoList = todoList.map((item) => ({
@@ -45,7 +44,6 @@ taskRoute
   .post(async (req, res) => {
     try {
       const { tasktitle,todoList } = req.body;
-      console.log(tasktitle,todoList)
       const { UserToken } = req.cookies;
 
       if (UserToken) {
