@@ -15,7 +15,10 @@ import Journal from "./pages/UserJournal";
 import CreateJournal from "./pages/CreateJournal";
 import JournalPage from "./pages/JournalPage";
 
-axios.defaults.baseURL="http://localhost:8000"//Need to create an ENV File
+const serverLink=process.env.REACT_APP_SERVER_URL
+
+axios.defaults.baseURL="http://localhost:8000"
+// axios.defaults.baseURL=serverLink
 axios.defaults.withCredentials=true
 
 function App() {

@@ -8,7 +8,7 @@ const mongoose=require("mongoose")
 const app=express()
 
 const corsOptions = {
-    origin:true,
+  origin: true,
     credentials: true
   };
 app.use(bodyParser.urlencoded({extended:true}))
@@ -17,7 +17,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors(corsOptions))
 
-const Port=process.env.PORT
+const Port=process.env.PORT||8000
 
 const register=require("./routes/register")
 const login=require("./routes/login")
