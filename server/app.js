@@ -7,10 +7,19 @@ const mongoose=require("mongoose")
 
 const app=express()
 
+const allowedOrigins = ['https://minimaldo.netlify.app'];
+
 const corsOptions = {
-  origin: true,
-    credentials: true
-  };
+  origin: function (origin, callback) {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, 
+};
+
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use(express.json())

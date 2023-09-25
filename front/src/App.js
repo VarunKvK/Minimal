@@ -17,8 +17,8 @@ import JournalPage from "./pages/JournalPage";
 
 const serverLink=process.env.REACT_APP_SERVER_URL
 
-axios.defaults.baseURL="http://localhost:8000"
-// axios.defaults.baseURL=serverLink
+// axios.defaults.baseURL="http://localhost:8000"
+axios.defaults.baseURL=serverLink
 axios.defaults.withCredentials=true
 
 function App() {
