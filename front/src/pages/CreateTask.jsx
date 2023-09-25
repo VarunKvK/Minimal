@@ -57,12 +57,14 @@ function CreateTask() {
     setError(newError);
     return Object.keys(newError).length === 0;
   }
+  
   function addTodo() {
     setTask((prev) => {
-      const todoList = [...prev.todoList, task.todo];
-      return { ...prev, todoList, todo: "" };
+      const updatedTodoList = [...prev.todoList, prev.todo];
+      return { ...prev, todoList: updatedTodoList, todo: "" };
     });
   }
+  
 
   function removeTasks(todoRemove) {
     const deleteTag = task.todoList.filter((todo) => todo !== todoRemove);
@@ -79,13 +81,15 @@ function CreateTask() {
     try {
       if (validation()) {
         if (id) {
+          
           await axios
             .put("/taskcreate", {
               id,
               tasktitle: task.tasktitle,
-            todoList: task.todoList,
+              todoList: task.todoList,
             })
-            .then(() => {
+            .then((data) => {
+              console.log(data)
               setSave(true);
               navigate(`/${user.username}/${user.id}`);
             });
@@ -94,7 +98,7 @@ function CreateTask() {
           navigate(`/${user.username}/${user.id}`);
           await axios.post("/taskcreate", {
             tasktitle: task.tasktitle,
-          todoList: task.todoList,
+            todoList: task.todoList,
           });
         }
       }
@@ -155,7 +159,31 @@ function CreateTask() {
                 <p className="text-[#EB6A6A]">{error.todoList}</p>
               ) : null}
             </div>
-            {task.todoList?.length > 0 &&
+            {id ? (task.todoList?.length > 0 &&
+              task.todoList?.map((todo, index) => {
+                return (
+                  <>
+                  <div
+                    key={index}
+                    className={
+                      task.todoList.length > 0
+                      ? "visible border-[1px] h-auto border-[#000] mt-4"
+                      : "invisible"
+                    }
+                    >
+                    <div className="flex items-center p-3 relative">
+                      <h3 className="capitalize"> ${todo.name? todo.name:todo}</h3>
+                      <div className="p-1 text-white absolute right-2 bg-[#EB6A6A] border-[1px] border-[#000]">
+                        <Delete
+                          className="cursor-pointer"
+                          onClick={() => removeTasks(todo)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                    </>
+                );
+              })):(task.todoList?.length > 0 &&
               task.todoList?.map((todo, index) => {
                 return (
                   <div
@@ -167,7 +195,7 @@ function CreateTask() {
                     }
                   >
                     <div className="flex items-center p-3 relative">
-                      <h3 className="capitalize"> {!id ? todo : todo.name}</h3>
+                      <h3 className="capitalize"> ${todo}</h3>
                       <div className="p-1 text-white absolute right-2 bg-[#EB6A6A] border-[1px] border-[#000]">
                         <Delete
                           className="cursor-pointer"
@@ -177,7 +205,7 @@ function CreateTask() {
                     </div>
                   </div>
                 );
-              })}
+              }))}
             <div className="w-full mt-[2rem] mb-[2rem] relative">
               {id ? (
                 <button className="z-10 relative bg-[#ebde69] w-full p-4 text-white font-semibold border-[1px] border-black">

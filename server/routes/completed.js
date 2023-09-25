@@ -6,9 +6,9 @@ const completeRoute = express.Router();
 completeRoute.route("/completeTask/:id").put(async (req, res) => {
   const { id } = req.params;
   const { name, completed } = req.body;
-    console.log(completed)
   try {
     const verifyId = await Task.findById(id);
+    console.log(verifyId)
     if (!verifyId) {
       return res.status(404).json({ message: "Task not found" });
     }

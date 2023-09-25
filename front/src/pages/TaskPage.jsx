@@ -11,7 +11,6 @@ function TaskPage() {
   const { id } = useParams();
   const [task, getTask] = useState([]);
   const [openBox, setOpen] = useState(false);
-  console.log(task)
   useEffect(() => {
     const fetchTask = async () => {
       try {
@@ -52,9 +51,10 @@ function TaskPage() {
             task?.todo?.map((todo,index) => {
               return (
                 <div key={index} className={`flex gap-4 items-center mb-4 ${todo.completed ? 'completed-task' : ''}`}>
-                  <CheckBox selected={todo.name} checkedId={todo._id} Checked={todo.completed}/>
+                  <CheckBox selected={todo.name} checkedId={id} Checked={todo.completed}/>
                   <p className={`text-lg  md:text-xl font-medium ${todo.completed ? 'text-[#ffffff]' : 'text-[#35421B]'}`}>
                     {todo.name}
+                  {console.log(todo)}
                   </p>
                 </div>
               );

@@ -46,13 +46,13 @@ function JournalPage() {
     <div className="w-full flex justify-center items-center p-10 flex-col md:grid md:place-items-center">
       <div className="h-auto w-full md:w-[40rem] p-8 bg-[#699deb] border-[1px] border-[#1E1E1E] relative">
         <div className="flex items-center">
-          <h1 className="text-3xl text-semibold md:text-3xl text-white flex items-center">
+          <h1 className="text-3xl font-bold md:text-3xl text-white flex items-center">
             {journal?.journaltitle}
             <span className="text-md text-[2rem]">🌕</span>
           </h1>
         </div>
         <div className="mt-4">
-          <p className="">{journal?.journal}</p>
+          <p className="font-semibold text-[#314a6e]">{journal?.journal}</p>
         </div>
       </div>
       <button

@@ -6,10 +6,8 @@ import { UserContext } from "../UserContext";
 function Settings() {
     const {user}=useContext(UserContext)
     async function logout(){
-        await axios.post("/logout").then(()=>{
-            window.location="/"
-            window.location.reload()
-        })
+      window.location="/"
+        await axios.post("/logout") 
     }
   return (
     <div className="z-10 animate-[topDown_.2s_ease-in-out] flex justify-center absolute top-[7.1rem] p-4 h-[7rem] w-[7rem] bg-white shadow-md ">

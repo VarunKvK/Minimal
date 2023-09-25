@@ -2,9 +2,10 @@ import axios from "axios";
 import React from "react";
 
 function CheckBox({ selected, checkedId,Checked }) {
+  console.log(checkedId)
   async function select(e) {
     const { name, checked } = e.target;
-    await axios.put(`/completeTask/${checkedId}`, { name, completed: checked });
+    await axios.put(`/completeTask/${checkedId}`, { name, completed: checked }).then(()=>window.location.reload());
   }
 
   return (

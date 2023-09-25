@@ -17,7 +17,6 @@ function Index() {
         const response = await axios.get("/home");
         const data = response.data;
         setTasks(data);
-        console.log("Fetched data:", data); 
       } catch (error) {
         console.error("Error fetching data:", error);
       }
